@@ -117,7 +117,7 @@ setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
 ```
 
 
-
+### コード説明できるように変数に代入する
 > 説明的な変数を利用しましょう
 
 **Bad:**
