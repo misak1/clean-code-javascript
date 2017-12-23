@@ -133,14 +133,11 @@ let revision = '20171218164030';
 let [, year, month, day, hour, minute, second] = revision.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
 console.info(new Date(year, month, day, hour, minute, second)); // Thu Jan 18 2018 16:40:30 GMT+0900 (JST)
 ```
-match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てている(後述の分割代入構文)
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てている(後述の分割代入構文)
 
 
-
-### Avoid Mental Mapping
 ### メンタルマップを避ける
-明らかなことは暗黙的なことよりも優れています。
-
+> 明らかなことは暗黙的なことよりも優れています。
 > 訳注：メンタルマップとは、認知心理学において記憶の中に構成される「あるべき姿」のイメージをさす言葉です。
 
 **Bad:**
@@ -170,16 +167,12 @@ locations.forEach((location) => {
   dispatch(location);
 });
 ```
-要するに他人に見せてもしょうがないコメントは不安を煽るだけだから残すなということ!?
-forEachでまわすものをlocationとしておけば問題ないのに...
 
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 要するに他人に見せてもしょうがないコメントは不安を煽るだけだから残すなということ!?  
+forEachでループするものがlocationとしておけば迷わないよ!ということ
 
-
-
-### Don't add unneeded context
 ### 不必要なコンテキストを加えない
-
-もしクラスやオブジェクト名が何かを伝えているのであれば、変数名でそのことを繰り返してはいけません。
+> もしクラスやオブジェクト名が何かを伝えているのであれば、変数名でそのことを繰り返してはいけません。
 
 **Bad:**
 ```javascript
@@ -208,12 +201,11 @@ function paintCar(car) {
 ```
 
 
-### Use default arguments instead of short circuiting or conditionals
 ### 短絡評価や条件の代わりにデフォルト引数を利用すること
 
-デフォルト引数は多くの場合、短絡評価よりも明確です。
-ご存知の通り、これらを使った場合、関数は`undefined`の引数のみにデフォルト値を提供します。
-他の`''`、`""`、`false`、`null`、`0`や`NaN`のような"falsy"値は、デフォルト値で置き換わることはありません。
+> デフォルト引数は多くの場合、短絡評価よりも明確です。
+> ご存知の通り、これらを使った場合、関数は`undefined`の引数のみにデフォルト値を提供します。
+> 他の`''`、`""`、`false`、`null`、`0`や`NaN`のような"falsy"値は、デフォルト値で置き換わることはありません。
 
 **Bad:**
 ```javascript
@@ -232,10 +224,8 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 
 ```
 
-ES6になってからデフォルト引数が使えるようになっているので、使いましょう。
-IEとかモバイルサファリで使えない場合があるので、生のjsを扱う場合は注意です。
-
-
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> ES6になってからデフォルト引数が使えるようになっているので使っていきましょう。  
+ただ、IEとかモバイルサファリで使えない場合があるので、生のjsを扱う場合は注意です。
 
 ## **Functions**
 ### Function arguments (2 or fewer ideally)
