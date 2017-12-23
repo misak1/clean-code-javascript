@@ -13,7 +13,7 @@ https://github.com/misak1/clean-code-javascript
   1. [はじめに](#introduction)
   2. [Variables](#variables)
   3. [Functions](#functions)
-  4. [Concurrency](#concurrency)
+  4. [同期処理_Concurrency](#同期処理_Concurrency)
   5. [Error Handling](#error-handling)
   6. [Formatting](#formatting)
   7. [Comments](#comments)
@@ -722,7 +722,7 @@ const car = new Car()
   .save();
 ```
 
-## **同期処理**
+## **同期処理_Concurrency**
 ### コールバックではなく、Promiseを使う
 
 コールバックは簡潔ではありません、そしてそれらは過剰な量のネストを引き起こします。
