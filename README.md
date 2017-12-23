@@ -33,8 +33,8 @@ https://github.com/misak1/clean-code-javascript
 Clean Codeにヒントを得て、有志によってつくられた
 JavaScriptに対するコーディング・ガイドになります。  
 <a href="https://www.amazon.co.jp/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" taget="_blank">Clean Code</a>は著者のRobert C. Martinらが長年の経験をもとにまとめたものです。
-こちらの本は言語は限定されていません。
-
+こちらの本は言語は限定されていません。  
+  
 キレイなコードは3R(Readable、Reusable、Refactorable)になっていることを指し
 読みやすい、再利用可能、理解や修正がしやすいように整理されている
 これらを目指すためのガイドになります。
@@ -228,7 +228,6 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 ただ、IEとかモバイルサファリで使えない場合があるので、生のjsを扱う場合は注意です。
 
 ## **Functions**
-### Function arguments (2 or fewer ideally)
 ### 関数の引数(2つ以下が理想的)
 
 関数の引数の数を制限することは、テストを簡単に行えるという点において非常に重要なことです。
@@ -262,9 +261,6 @@ createMenu({
 });
 ```
 
-
-
-### Functions should do one thing
 ### 関数は1つのことを行うこと
 
 これはとても重要なルールです。
@@ -297,7 +293,6 @@ function isActiveClient(client) {
 ```
 
 
-### Function names should say what they do
 ### 関数名は何をするかを表すこと
 
 **Bad:**
@@ -323,8 +318,6 @@ const date = new Date();
 addMonthToDate(1, date);
 ```
 
-
-### Remove duplicate code
 ### 重複したコードを削除すること
 
 重複したコードを避けるために絶対にベストを尽くしてください。
@@ -391,12 +384,9 @@ function showEmployeeList(employees) {
 }
 ```
 
-サンプルはリファクタリングとしてはいい例なの、
-最悪なのはコピペコードが複数箇所に点在していることです。
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> サンプルはリファクタリングとしてはいい例だと思います、  
+最悪なのはコピペされたコードが複数箇所に点在していることです。
 
-
-
-### Set default objects with Object.assign
 ### Object.assignでデフォルトオブジェクトを設定すること
 
 **Bad:**
@@ -444,14 +434,11 @@ function createMenu(config) {
 createMenu(menuConfig);
 ```
 
-似ているObject.assignと分割代入構文
-Object.assignはオブジェクトのテンプレートを定義すること、
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 似ているObject.assignと分割代入構文  
+Object.assignはオブジェクトのテンプレートを定義することに対し
 分割代入構文はその場でオブジェクトを作ること
 
 
-
-
-### Don't use flags as function parameters
 ### フラグを関数の引数のように利用しない
 
 フラグは、この関数が複数のことを行うことを利用者に伝えます。
