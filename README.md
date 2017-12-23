@@ -23,8 +23,11 @@ https://github.com/misak1/clean-code-javascript
   <!-- 6. [SOLID](#solid) -->
   <!-- 7. [Testing](#testing) -->
 ## はじめに
+
 <div>
-<img style="float:right; margin:0 0 10px 10px" src="https://images-na.ssl-images-amazon.com/images/I/51bPR2V9fBL._SX404_BO1,204,203,200_.jpg" width="150px" >
+<img style="" src="https://images-na.ssl-images-amazon.com/images/I/51bPR2V9fBL._SX404_BO1,204,203,200_.jpg" width="150px" />
+</div>  
+
 <div>
 このJavaScriptコーディング・ガイドのリポジトリは
 Clean Codeにヒントを得て、有志によってつくられた
@@ -50,7 +53,7 @@ JavaScriptは良くも悪くも、非常に自由に書ける言語です。
 ・ES8や策定中の機能については削除  
 ・デザインパターンについては話がややこしくなるので省略します。
 </div>
-</div>
+
 
 
 
