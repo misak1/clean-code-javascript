@@ -1,154 +1,141 @@
 # clean-code-javascript
 
-clean code JavaScript(日本語訳)
+このリポジトリは個人資料の為、原文が必要な方は下記のリンクを参考にしてください。
 
-## Table of Contents
-  1. [Introduction](#introduction)
+clean code JavaScript(本家)  
+https://github.com/mitsuruog/clean-code-javascript 
+
+clean code JavaScript(日本語訳)  
+https://mitsuruog.github.io/clean-code-javascript/  
+https://github.com/misak1/clean-code-javascript  
+
+## 目次
+  1. [はじめに](#introduction)
   2. [Variables](#variables)
   3. [Functions](#functions)
-  4. [Objects and Data Structures](#objects-and-data-structures)
-  5. [Classes](#classes)
-  6. [SOLID](#solid)
-  7. [Testing](#testing)
-  8. [Concurrency](#concurrency)
-  9. [Error Handling](#error-handling)
-  10. [Formatting](#formatting)
-  11. [Comments](#comments)
-  12. [Translation](#translation)
-
-## Introduction
+  4. [Concurrency](#concurrency)
+  5. [Error Handling](#error-handling)
+  6. [Formatting](#formatting)
+  7. [Comments](#comments)
+  <!-- 8. [Translation](#translation) -->
+  <!-- 4. [Objects and Data Structures](#objects-and-data-structures) -->
+  <!-- 4. [Classes](#classes) -->
+  <!-- 6. [SOLID](#solid) -->
+  <!-- 7. [Testing](#testing) -->
 ## はじめに
-![Humorous image of software quality estimation as a count of how many expletives
-you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
+<div>
+<img style="float:right; margin:0 0 10px 10px" src="https://images-na.ssl-images-amazon.com/images/I/51bPR2V9fBL._SX404_BO1,204,203,200_.jpg" width="150px" >
+<div>
+このJavaScriptコーディング・ガイドのリポジトリは
+Clean Codeにヒントを得て、有志によってつくられた
+JavaScriptに対するコーディング・ガイドになります。  
+<a href="https://www.amazon.co.jp/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" taget="_blank">Clean Code</a>は著者のRobert C. Martinらが長年の経験をもとにまとめたものです。
+こちらの本は言語は限定されていません。
 
-Software engineering principles, from Robert C. Martin's book
-[*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-adapted for JavaScript. This is not a style guide. It's a guide to producing
-[readable, reusable, and refactorable](https://github.com/ryanmcdermott/3rs-of-software-architecture) software in JavaScript.
+キレイなコードは3R(Readable、Reusable、Refactorable)になっていることを指し
+読みやすい、再利用可能、理解や修正がしやすいように整理されている
+これらを目指すためのガイドになります。
 
-Robert C. Martinの本[*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)、ソフトウェアエンジニアリングの原則をJavaScriptに適用させたもの。
-これはスタイルガイドではありません。JavaScriptで[可読性が良く、再利用でき、リファクタリング可能](https://github.com/ryanmcdermott/3rs-of-software-architecture)なソフトウェアを提供するためのガイドです。
+全てのコードは、粘土が徐々に形作られていくように、曖昧な形から始まるものです。
+その後でコードレビューを行い、不要なコードを削除して作りあげていくものです。
+とも語られているそうです。
 
-Not every principle herein has to be strictly followed, and even fewer will be
-universally agreed upon. These are guidelines and nothing more, but they are
-ones codified over many years of collective experience by the authors of
-*Clean Code*.
+JavaScriptは良くも悪くも、非常に自由に書ける言語です。
+その為、個人の技量に応じてコードが複雑になったりしやすいので、
+改めてみてみると面白い発見がありましたので個人の見解も含めて紹介したいと思います。
 
-すべての原則に厳密に厳格に従う必要はありません、さらに普遍的に合意されているものはさらに少くなります。
-これらはガイドライン以上の何ものでもありませんが、*Clean Code* の著者達による長年の経験を集めて文書化したものの一つです。
+### 変更内容
+・サンプルコードについて一部わかりにくいものについては差し替えました。  
+・業務で使うのがES6ということで、ES5関連の過去の記述方法については削除  
+・ES8や策定中の機能については削除  
+・デザインパターンについては話がややこしくなるので省略します。
+</div>
+</div>
 
-Our craft of software engineering is just a bit over 50 years old, and we are
-still learning a lot. When software architecture is as old as architecture
-itself, maybe then we will have harder rules to follow. For now, let these
-guidelines serve as a touchstone by which to assess the quality of the
-JavaScript code that you and your team produce.
 
-ソフトウェアエンジニアリング技術は50歳を少し超えただけであり、いまだ多くのことを私たちは学び続けています。
-もし、ソフトウェアアーキテクチャがそのアーキテクチャと同じくらい古いものであれば、おそらくそれに従うためのより厳格なルールがあることでしょう。
-今のところ、これらのガイドラインはあなたとチームが提供するJavaScriptコードの品質を確認するための試金石として役立つでしょう。
-
-One more thing: knowing these won't immediately make you a better software
-developer, and working with them for many years doesn't mean you won't make
-mistakes. Every piece of code starts as a first draft, like wet clay getting
-shaped into its final form. Finally, we chisel away the imperfections when
-we review it with our peers. Don't beat yourself up for first drafts that need
-improvement. Beat up the code instead!
-
-もう一つ大事なこと:  
-これらのことを知っているからといっても、すぐにより良い開発者にしてくれる訳ではありません。
-また、長年これにしたがって作業していたとしても、間違いを犯さない訳でもありません。
-全てのコードのかけらは、湿った粘土をこねて最終形を目指すように、最初ドラフトとして始まります。
-最終的に同僚とこれをレビューする時に、この不完全な部分を取り除いていきます。
-どうか改善が必要な最初のドラフトで自分自身を叩かないでください。代わりにコードを叩きましょう！
 
 ## **Variables**
-### Use meaningful and pronounceable variable names
-### 意味があり発音可能な変数名を利用すること
+> 利用範囲の広い変数には意味のある名前を利用しましょう
+例にconst（定数）として使う場合にこれが該当します。
 
 **Bad:**
 ```javascript
-const yyyymmdstr = moment().format('YYYY/MM/DD');
+const yyyymmdstr = getDate().format('YYYY/MM/DD');
 ```
 
 **Good:**
 ```javascript
-const currentDate = moment().format('YYYY/MM/DD');
+const currentDate = getDate().format('YYYY/MM/DD');
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable
-### 同じタイプの変数には同じ単語を利用すること
+
+### 同じ処理をするものには同じ名前を利用すること
 
 **Bad:**
 ```javascript
-getUserInfo();
-getClientData();
-getCustomerRecord();
+class User(){
+  getUserInfo();
+}
+class Client(){
+  getClientData();
+}
+class Customer(){
+  getCustomerRecord();
+}
 ```
 
 **Good:**
 ```javascript
-getUser();
+class User(){
+  getUser();
+}
+class Client(){
+  getUser();
+}
+class Customer(){
+  getUser();
+}
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Use searchable names
-### 検索できる名前を利用すること
 
-We will read more code than we will ever write. It's important that the code we
-do write is readable and searchable. By *not* naming variables that end up
-being meaningful for understanding our program, we hurt our readers.
-Make your names searchable. Tools like
-[buddy.js](https://github.com/danielstjules/buddy.js) and
-[ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)
-can help identify unnamed constants.
 
-私たちはコードを書くよりも読む方が多いでしょう。そのため、コードを読みやすく検索できるように書くことは重要なことです。
-プログラムを理解するために有意義な名前を付けない変数によって、私たちは読み手を傷つけています。
-変数を検索可能にしておいてください。[buddy.js](https://github.com/danielstjules/buddy.js)や
-[ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)のようなツールは、名前が付いていない変数を識別する手助けをしてくれます。
+### 検索しやすい名前をつける
+> マジックナンバーは他の人でも理解出来るように一度変数に代入しましょう。
 
 **Bad:**
 ```javascript
-// What the heck is 86400000 for?
-// 一体、なんのための86400000なんだい？
 setTimeout(blastOff, 86400000);
-
 ```
 
 **Good:**
 ```javascript
-// Declare them as capitalized `const` globals.
-// それらを大文字のグローバルな`const`をして定義します。
 const MILLISECONDS_IN_A_DAY = 86400000;
-
 setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
-
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Use explanatory variables
-### 説明的な変数を利用すること
+
+
+> 説明的な変数を利用しましょう
 
 **Bad:**
 ```javascript
-const address = 'One Infinite Loop, Cupertino 95014';
-const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
-saveCityZipCode(address.match(cityZipCodeRegex)[1], address.match(cityZipCodeRegex)[2]);
+let revision = '20171218164030';
+let f = revision.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+console.info(new Date(f[1], f[2], f[3], f[4], f[5], f[6])); // Thu Jan 18 2018 16:40:30 GMT+0900 (JST)
 ```
 
 **Good:**
 ```javascript
-const address = 'One Infinite Loop, Cupertino 95014';
-const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
-const [, city, zipCode] = address.match(cityZipCodeRegex) || [];
-saveCityZipCode(city, zipCode);
+let revision = '20171218164030';
+let [, year, month, day, hour, minute, second] = revision.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
+console.info(new Date(year, month, day, hour, minute, second)); // Thu Jan 18 2018 16:40:30 GMT+0900 (JST)
 ```
-**[⬆ back to top](#table-of-contents)**
+match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てている(後述の分割代入構文)
+
+
 
 ### Avoid Mental Mapping
 ### メンタルマップを避ける
-Explicit is better than implicit.
 明らかなことは暗黙的なことよりも優れています。
 
 > 訳注：メンタルマップとは、認知心理学において記憶の中に構成される「あるべき姿」のイメージをさす言葉です。
@@ -180,12 +167,14 @@ locations.forEach((location) => {
   dispatch(location);
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+要するに他人に見せてもしょうがないコメントは不安を煽るだけだから残すなということ!?
+forEachでまわすものをlocationとしておけば問題ないのに...
+
+
+
 
 ### Don't add unneeded context
 ### 不必要なコンテキストを加えない
-If your class/object name tells you something, don't repeat that in your
-variable name.
 
 もしクラスやオブジェクト名が何かを伝えているのであれば、変数名でそのことを繰り返してはいけません。
 
@@ -214,14 +203,10 @@ function paintCar(car) {
   car.color = 'Red';
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Use default arguments instead of short circuiting or conditionals
 ### 短絡評価や条件の代わりにデフォルト引数を利用すること
-Default arguments are often cleaner than short circuiting. Be aware that if you
-use them, your function will only provide default values for `undefined`
-arguments. Other "falsy" values such as `''`, `""`, `false`, `null`, `0`, and
-`NaN`, will not be replaced by a default value.
 
 デフォルト引数は多くの場合、短絡評価よりも明確です。
 ご存知の通り、これらを使った場合、関数は`undefined`の引数のみにデフォルト値を提供します。
@@ -243,53 +228,25 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 }
 
 ```
-**[⬆ back to top](#table-of-contents)**
+
+ES6になってからデフォルト引数が使えるようになっているので、使いましょう。
+IEとかモバイルサファリで使えない場合があるので、生のjsを扱う場合は注意です。
+
+
 
 ## **Functions**
 ### Function arguments (2 or fewer ideally)
 ### 関数の引数(2つ以下が理想的)
-Limiting the amount of function parameters is incredibly important because it
-makes testing your function easier. Having more than three leads to a
-combinatorial explosion where you have to test tons of different cases with
-each separate argument.
 
 関数の引数の数を制限することは、テストを簡単に行えるという点において非常に重要なことです。
-3つ以上あるということは、それぞれ別の引数を伴った数多くの異なるケースをテストしなければならないという、組み合わせ爆発につながります。
+3つ以上あるということは、それぞれ別の引数を伴った数多くの異なるケースをテストしなければならないという問題につながります。
 
-One or two arguments is the ideal case, and three should be avoided if possible.
-Anything more than that should be consolidated. Usually, if you have
-more than two arguments then your function is trying to do too much. In cases
-where it's not, most of the time a higher-level object will suffice as an
-argument.
-
-1つか2つの場合は理想的で、3つは可能であれば避けるべきです。
-それ以上のものは統合する必要があります。通常2つ以上の引数を持つ場合、その関数は余りにも多くのことをやろうとしています。
-そうでない場合、ほとんどの場合、上位のオブジェクトを引数とすれば十分でしょう。
-
-Since JavaScript allows you to make objects on the fly, without a lot of class
-boilerplate, you can use an object if you are finding yourself needing a
-lot of arguments.
+1つか2つの場合は理想的で、3つ以上になる場合は次の手法を検討してください。
+ほとんどの場合、上位のオブジェクトを引数とすれば十分でしょう。
 
 JavaScriptは、多くのクラスの雛形がなくとも素早くオブジェクトを作成することができるため、もし多くの引数を必要としているとわかった場合は、オブジェクトを使うことができます。
 
-To make it obvious what properties the function expects, you can use the ES2015/ES6
-destructuring syntax. This has a few advantages:
-
-1. When someone looks at the function signature, it's immediately clear what
-properties are being used.
-2. Destructuring also clones the specified primitive values of the argument
-object passed into the function. This can help prevent side effects. Note:
-objects and arrays that are destructured from the argument object are NOT
-cloned.
-3. Linters can warn you about unused properties, which would be impossible
-without destructuring.
-
-関数がどのプロパティを期待しているかを明らかにするために、ES2015/ES6の分割代入(destructuring)構文を利用することができます。
-これにはいくつかの利点があります。
-
-1. 誰かが関数の定義を見たときに、どのプロパティが利用されているかが明らかです。
-2. 分割代入は、関数の中に渡された引数オブジェクトの指定されたプリミティブ型の値を複製します。これは副作用を防ぐ役割をします。注意:引数オブジェクトから再構成されたオブジェクトや配列は複製されません。
-3. Lintツールが、未使用のプロパティについて警告を出すことができます。このようなことは、分割代入しない限り不可能でしょう。
+これを解決するのがES2015/ES6のdestructuring assignment(分割代入構文)です。
 
 **Bad:**
 ```javascript
@@ -311,21 +268,14 @@ createMenu({
   cancellable: true
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 
 ### Functions should do one thing
 ### 関数は1つのことを行うこと
-This is by far the most important rule in software engineering. When functions
-do more than one thing, they are harder to compose, test, and reason about.
-When you can isolate a function to just one action, they can be refactored
-easily and your code will read much cleaner. If you take nothing else away from
-this guide other than this, you'll be ahead of many developers.
 
-これはいままでのところ、ソフトウェアエンジニアリングにとってもっとも重要なルールです。
-関数が2つ以上のことをやるときは、それを作ったり、テストしたり、理由付けすることが難しくなります。
+これはとても重要なルールです。
 関数をただ1つのことをやるように分離できた場合、それらを簡単にリファクタリングしたり、コードをかなりしっかりと読むことができます。
-このガイドのこれ以外のことをなにもしなかったとしても、これをすることだけで、あなたは他の開発者よりも少し先に進んでいると言えます。
 
 **Bad:**
 ```javascript
@@ -352,7 +302,7 @@ function isActiveClient(client) {
   return clientRecord.isActive();
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Function names should say what they do
 ### 関数名は何をするかを表すこと
@@ -379,117 +329,13 @@ function addMonthToDate(month, date) {
 const date = new Date();
 addMonthToDate(1, date);
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Functions should only be one level of abstraction
-### 関数はただ1つの抽象化をすること
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
-
-関数が1つ以上の抽象化を行なっている場合、通常その関数は多くのことをやり過ぎています。関数を分割することで、再利用やテストが簡単になります。
-
-**Bad:**
-```javascript
-function parseBetterJSAlternative(code) {
-  const REGEXES = [
-    // ...
-  ];
-
-  const statements = code.split(' ');
-  const tokens = [];
-  REGEXES.forEach((REGEX) => {
-    statements.forEach((statement) => {
-      // ...
-    });
-  });
-
-  const ast = [];
-  tokens.forEach((token) => {
-    // lex...
-  });
-
-  ast.forEach((node) => {
-    // parse...
-  });
-}
-```
-
-**Good:**
-```javascript
-function tokenize(code) {
-  const REGEXES = [
-    // ...
-  ];
-
-  const statements = code.split(' ');
-  const tokens = [];
-  REGEXES.forEach((REGEX) => {
-    statements.forEach((statement) => {
-      tokens.push( /* ... */ );
-    });
-  });
-
-  return tokens;
-}
-
-function lexer(tokens) {
-  const ast = [];
-  tokens.forEach((token) => {
-    ast.push( /* ... */ );
-  });
-
-  return ast;
-}
-
-function parseBetterJSAlternative(code) {
-  const tokens = tokenize(code);
-  const ast = lexer(tokens);
-  ast.forEach((node) => {
-    // parse...
-  });
-}
-```
-**[⬆ back to top](#table-of-contents)**
 
 ### Remove duplicate code
 ### 重複したコードを削除すること
-Do your absolute best to avoid duplicate code. Duplicate code is bad because it
-means that there's more than one place to alter something if you need to change
-some logic.
 
 重複したコードを避けるために絶対にベストを尽くしてください。
 重複したコードは、もし何かのロジックを変更しようとした場合、何か変更する場所が1つ以上あるという意味で悪です。
-
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
-
-あなたがレストランを経営していて、すべてのトマト、たまねぎ、ニンニク、スパイスなどの在庫を追跡しているとします。
-もし複数のリストを持っている場合、トマトが入った料理を提供したら、全てを更新しなければなりません。
-もしそれが1つだった場合、更新する場所はたった1つです！
-
-Oftentimes you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of
-different things with just one function/module/class.
-
-しばしば、共有点が多いにも関わらず、2つ以上のわずかに異なる部分があるために、重複したコードを持つことがあります。
-しかしその違いによって、ほとんど同じことを行う2つ以上の別々の関数が必要になります。
-重複したコードを削除するということは、関数/モジュール/クラスを1つだけ利用して、これらのわずかにを異なる一連のものを処理することができる抽象化を作るということを意味します。
-
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the *Classes* section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places anytime you want to change one thing.
-
-抽象化を正しく行うことが重要です。そのため、*クラス* セクションで説明されているSOLIDの原則に従う必要があります。
-悪い抽象化は、重複コードより悪い可能性があります、注意深くしましょう！
-少し難しいことではありますが、もし良い抽象化ができるのであればそれをやってください！
-自分自身を繰り返さないこと。そうしなければ、1つの場所を変更したいときはいつでも、複数の場所を変更することになります。
 
 **Bad:**
 ```javascript
@@ -551,7 +397,11 @@ function showEmployeeList(employees) {
   });
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+
+サンプルはリファクタリングとしてはいい例なの、
+最悪なのはコピペコードが複数箇所に点在していることです。
+
+
 
 ### Set default objects with Object.assign
 ### Object.assignでデフォルトオブジェクトを設定すること
@@ -600,12 +450,16 @@ function createMenu(config) {
 
 createMenu(menuConfig);
 ```
-**[⬆ back to top](#table-of-contents)**
+
+似ているObject.assignと分割代入構文
+Object.assignはオブジェクトのテンプレートを定義すること、
+分割代入構文はその場でオブジェクトを作ること
+
+
 
 
 ### Don't use flags as function parameters
 ### フラグを関数の引数のように利用しない
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
 
 フラグは、この関数が複数のことを行うことを利用者に伝えます。
 関数は1つのことを行うべきです。関数が真偽値によって異なるコードの経路を経由する場合、その関数を分割してください。
@@ -631,158 +485,16 @@ function createTempFile(name) {
   createFile(`./temp/${name}`);
 }
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Avoid Side Effects (part 1)
-### 副作用を避ける (part 1)
-A function produces a side effect if it does anything other than take a value in
-and return another value or values. A side effect could be writing to a file,
-modifying some global variable, or accidentally wiring all your money to a
-stranger.
+ケースバイケースかと思います。
 
-関数が、値を受け取り何か他の値を返す以外のことを行う場合、副作用を引き起こします。
-副作用とは、ファイルを書き込みしたり、なにかのグローバル変数を書き換えたり、誤ってあなたの全てのお金を見知らぬ人に振込みするようなものです。
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to
-centralize where you are doing this. Don't have several functions and classes
-that write to a particular file. Have one service that does it. One and only one.
-
-時には、副作用を持つプログラムを必要とします。少し前に例で挙げた、ファイルに書き込みしなければならない場合のように。
-あなたがしたいことは、どこでこれを行うかを集中させることです。
-ファイルを部分的に書き換えするような、関数やクラスをいくつも持たないでください。
-それを行う1つのサービスを持ってください。1つ、1だけです。
-
-The main point is to avoid common pitfalls like sharing state between objects
-without any structure, using mutable data types that can be written to by anything,
-and not centralizing where your side effects occur. If you can do this, you will
-be happier than the vast majority of other programmers.
-
-重要なポイントは、何でも書き込むことができる可変長のデータ型を用いて、何の構造も無しにオブジェクト間で状態を共有し、
-副作用が発生する場所を集中させないといった、共通の落とし穴を避けることです。
-これを行うことができれば、大多数の他のプログラマーよりも幸せになれます。
-
-**Bad:**
-```javascript
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
-// グローバル変数があとの関数から参照されている
-// もし、この名前を別の関数で（直接）使っている場合、これは配列となって、そして壊れる。
-let name = 'Ryan McDermott';
-
-function splitIntoFirstAndLastName() {
-  name = name.split(' ');
-}
-
-splitIntoFirstAndLastName();
-
-console.log(name); // ['Ryan', 'McDermott'];
-```
-
-**Good:**
-```javascript
-function splitIntoFirstAndLastName(name) {
-  return name.split(' ');
-}
-
-const name = 'Ryan McDermott';
-const newName = splitIntoFirstAndLastName(name);
-
-console.log(name); // 'Ryan McDermott';
-console.log(newName); // ['Ryan', 'McDermott'];
-```
-**[⬆ back to top](#table-of-contents)**
-
-### Avoid Side Effects (part 2)
-### 副作用を避ける (part 2)
-In JavaScript, primitives are passed by value and objects/arrays are passed by
-reference. In the case of objects and arrays, if your function makes a change
-in a shopping cart array, for example, by adding an item to purchase,
-then any other function that uses that `cart` array will be affected by this
-addition. That may be great, however it can be bad too. Let's imagine a bad
-situation:
-
-JavaScriptでは、プリミティブ型は値渡しであり、オブジェクトと配列は参照渡しです。
-オブジェクトと配列の場合、もし関数がショッピングカート内の配列に変更を加える場合、（例えば、購入するために商品を加えるなど）
-この`cart`と同じ配列を使っている他の関数は、この追加の影響を受けます。
-
-The user clicks the "Purchase", button which calls a `purchase` function that
-spawns a network request and sends the `cart` array to the server. Because
-of a bad network connection, the `purchase` function has to keep retrying the
-request. Now, what if in the meantime the user accidentally clicks "Add to Cart"
-button on an item they don't actually want before the network request begins?
-If that happens and the network request begins, then that purchase function
-will send the accidentally added item because it has a reference to a shopping
-cart array that the `addItemToCart` function modified by adding an unwanted
-item.
-
-ユーザーが購入ボタンをクリックすると、`purchase`関数を呼び出し、その関数はネットワークリクエストを生成して、その`cart`配列をサーバーへ送信します。
-しかし、ネットワーク接続が悪いために、`purchase`関数はリクエストを繰り返し送信し続けなければならない。
-
-ユーザーが、ネットワークリクエストが始まる前に欲しいとは思っていない商品の"カートに追加する"ボタンをうっかりクリックしてしまった場合。
-もしそれが起こって、ネットワークリクエストが始まった場合、その時、そのpurchase関数は間違って追加された商品を送信してしまいます。
-なぜなら、その関数は`addItemToCart`によって望んでいない商品を追加され、変更されてしまったショッピングカート配列を参照しているからです。
-
-A great solution would be for the `addItemToCart` to always clone the `cart`,
-edit it, and return the clone. This ensures that no other functions that are
-holding onto a reference of the shopping cart will be affected by any changes.
-
-良い解決策は、`addItemToCart`が常に`cart`を複製して変更し、その変更したものを返すことでしょう。
-このことは、ショッピングカートへの参照を保持している他の関数は、いかなる変更の影響も受けないことを保証します。
-
-Two caveats to mention to this approach:
-  1. There might be cases where you actually want to modify the input object,
-but when you adopt this programming practice you will find that those cases
-are pretty rare. Most things can be refactored to have no side effects!
-
-  2. Cloning big objects can be very expensive in terms of performance. Luckily,
-this isn't a big issue in practice because there are
-[great libraries](https://facebook.github.io/immutable-js/) that allow
-this kind of programming approach to be fast and not as memory intensive as
-it would be for you to manually clone objects and arrays.
-
-このアプローチに関する2つの注意点:
-
-  1. 時に、渡されたオブジェクトを変更したい場所があるケースがありますが、このプログラミング手法を採用している場合、このケースは稀だということに気づくでしょう。
-  そしてほとんどの場合、副作用がないようにリファクタリングすることができます。
-
-  2. 巨大なオブジェクトを複製することは、パフォーマンスの面で非常にコストが高いことになります。
-  幸運なことに、これはこの手法においては大きな問題ではありません。なせなら、このようなプログラミングアプローチをより高速かつ、手作業でオブジェクトや配列を複製するよりもメモリ使用量を抑えることができる[素晴らしいライブラリ](https://facebook.github.io/immutable-js/)が存在するからです。
-
-**Bad:**
-```javascript
-const addItemToCart = (cart, item) => {
-  cart.push({ item, date: Date.now() });
-};
-```
-
-**Good:**
-```javascript
-const addItemToCart = (cart, item) => {
-  return [...cart, { item, date : Date.now() }];
-};
-```
-
-**[⬆ back to top](#table-of-contents)**
 
 ### Don't write to global functions
 ### グローバル関数に書き込まない
-Polluting globals is a bad practice in JavaScript because you could clash with another
-library and the user of your API would be none-the-wiser until they get an
-exception in production. Let's think about an example: what if you wanted to
-extend JavaScript's native Array method to have a `diff` method that could
-show the difference between two arrays? You could write your new function
-to the `Array.prototype`, but it could clash with another library that tried
-to do the same thing. What if that other library was just using `diff` to find
-the difference between the first and last elements of an array? This is why it
-would be much better to just use ES2015/ES6 classes and simply extend the `Array` global.
 
 グローバルを汚染することはJavaScriptにおけるバッドプラクティスです。
 なぜなら、他のライブラリをクラッシュさせるかもしれないし、あなたのAPIを使っているユーザーは、プロダクション環境で例外を受け取るまで、そのことについて何もわからないからです。
-例を考えてみましょう。もし、JavaScriptの既存のArray関数を拡張して、`diff`という2つの配列間の差分をみることができる関数を追加したいとしたらどうでしょうか？
-`Array.prototype`に新しい関数を作成することができるかもしれないですが、他のライブラリで同じことをやろうとしているものをクラッシュさせるかもしれません。
-もし、他のライブラリが、`diff`を単に配列の最初と最後の差分を見つけるために利用していたとしたらどうでしょう？
-このことは、なぜグローバルの`Array`を単純に拡張するよりも、ES2015/ES6のクラスを使った方がより良いかという理由です。
 
 **Bad:**
 ```javascript
@@ -801,13 +513,13 @@ class SuperArray extends Array {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Favor functional programming over imperative programming
+どうしてもグローバルスコープを使う場合は、ビルトイン関数を上書きすることは避けるのと、また他と被らない名前で展開しましょう。（後述のビルトイン関数の上書きを使った利用例）
+
+
+
+<!-- ### Favor functional programming over imperative programming
 ### 手続き型プログラミングより関数型プログラミングを優先する
-JavaScript isn't a functional language in the way that Haskell is, but it has
-a functional flavor to it. Functional languages are cleaner and easier to test.
-Favor this style of programming when you can.
 
 JavaScriptは、Haskellがやっているような関数型言語ではありませんが、部分的にその機能があります。
 関数型言語は簡潔で用意にテストすることができます。あなたができる時は、このプログラミングスタイルを優先してください。
@@ -861,7 +573,7 @@ const totalOutput = programmerOutput
   .map((programmer) => programmer.linesOfCode)
   .reduce((acc, linesOfCode) => acc + linesOfCode, INITIAL_VALUE);
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Encapsulate conditionals
 ### 条件をカプセル化する
@@ -883,7 +595,7 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 ### Avoid negative conditionals
 ### 否定的な条件を避ける
@@ -895,7 +607,7 @@ function isDOMNodeNotPresent(node) {
 }
 
 if (!isDOMNodeNotPresent(node)) {
-  // ...
+  // なんらかの処理
 }
 ```
 
@@ -906,21 +618,19 @@ function isDOMNodePresent(node) {
 }
 
 if (isDOMNodePresent(node)) {
-  // ...
+  // 何もしない
+}else{
+  // なんらかの処理
 }
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Avoid conditionals
+裏の裏は表みたいなややこしいことはしないで、基本を肯定で作る
+何もしないブロックがあってもいいと思う（後述のコメント削除）
+
+
+
+<!-- ### Avoid conditionals
 ### 条件文を避ける
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
 
 これは一見不可能なタスクのように見えます。
 最初にこれを聞いて、ほとんどの人はこう言います。「`if`文なしで、何をするの？」
@@ -974,14 +684,11 @@ class Cessna extends Airplane {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
-
+ -->
+<!-- 
 ### Avoid type-checking (part 1)
 ### 型チェックを避ける (part 1)
-JavaScript is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+
 
 JavaScriptには型がありません、このことは、関数がどんな型の引数でも受け取ることができることを意味します。
 ときにはこの自由に夢中になって、関数の中でタイプチェックをするような誘惑に駆られるようになります。
@@ -1004,19 +711,10 @@ function travelToTexas(vehicle) {
   vehicle.move(this.currentLocation, new Location('texas'));
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Avoid type-checking (part 2)
 ### 型チェックを避ける (part 2)
-If you are working with basic primitive values like strings, integers, and arrays,
-and you can't use polymorphism but you still feel the need to type-check,
-you should consider using TypeScript. It is an excellent alternative to normal
-JavaScript, as it provides you with static typing on top of standard JavaScript
-syntax. The problem with manually type-checking normal JavaScript is that
-doing it well requires so much extra verbiage that the faux "type-safety" you get
-doesn't make up for the lost readability. Keep your JavaScript clean, write
-good tests, and have good code reviews. Otherwise, do all of that but with
-TypeScript (which, like I said, is a great alternative!).
 
 もし、あなたが文字列、数値、配列のような基本的なプリミティブな値を扱っていて、ポリモーフィズムを使えない、しかしまだタイプチェックが必要だと感じている場合。
 TypeScriptの利用を検討してみてください。
@@ -1043,15 +741,10 @@ function combine(val1, val2) {
   return val1 + val2;
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 ### Don't over-optimize
 ### 行き過ぎた最適化をしない
-Modern browsers do a lot of optimization under-the-hood at runtime. A lot of
-times, if you are optimizing then you are just wasting your time. [There are good
-resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
-for seeing where optimization is lacking. Target those in the meantime, until
-they are fixed if they can be.
 
 モダンブラウザは、ランタイムの中で多くの最適化を行います。
 何度も最適化を行なっているのであれば、それは時間の無駄です。[ここにどこで最適化が不足するかをみるための良い資料](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)があります。
@@ -1059,9 +752,6 @@ they are fixed if they can be.
 
 **Bad:**
 ```javascript
-
-// On old browsers, each iteration with uncached `list.length` would be costly
-// because of `list.length` recomputation. In modern browsers, this is optimized.
 // 古いブラウザにおいては、キャッシュされていない`list.length`はコストが掛かる
 // なぜなら、`list.length`が再計算されるから。しかし、モダンプラウザでは最適化されている
 for (let i = 0, len = list.length; i < len; i++) {
@@ -1075,17 +765,45 @@ for (let i = 0; i < list.length; i++) {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+c++は前置インクリメント(++i)にしたほうが良いとのこともありますがそちらも不要です。
+
+### for文について
+
+基本構文
+```javascript
+for(初期化; ループの継続条件; カウンタ変数の更新){
+    処理内容
+}
+```
+
+そもそもこのfor文を使う必要があるのか検討しましょう。
+反復処理ならビルトイン関数で賄えるはずです。（array.map、array.filter、array.forEach）またはfor-in、for-of文。
+
+ケース１、continue、breakが必要な場合、
+ケース２、カウンタ変数を細かく制御したい場合
+
+```javascript
+let t1 = [];
+for(let i = 0; i < 20; i += 2){
+  t1.push(i);
+}
+console.log(t1.join(',')); // 0,2,4,6,8,10,12,14,16,18
+
+let t2 = [];
+for(let i = 1, x = 2, v = 21; x < v; i++, x = i * 3 - 1){
+    t2.push(x);
+}
+console.log(t2.join(',')); // 2,5,8,11,14,17,20
+```
+
+
+
+
 
 ### Remove dead code
 ### 使っていないコードを削除する
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
-
-使っていないコードは重複したコードと同じくらい悪いだけのものです。コードベースに残しておく理由はなにもありません。
-もし、呼び出されていないのであれば、それらを取り除きましょう！
-もし、まだ必要であってもバージョン管理の中にあるだけで安全でしょう。
+使っていないコードは重複したコードと同じくらい悪いだけのものです。
+コードがバージョン管理されていれば、復元するのも簡単です。
 
 **Bad:**
 ```javascript
@@ -1111,24 +829,14 @@ function newRequestModule(url) {
 const req = newRequestModule;
 inventoryTracker('apples', req, 'www.inventory-awesome.io');
 ```
-**[⬆ back to top](#table-of-contents)**
 
+<!-- 
 ## **Objects and Data Structures**
 ## **オブジェクとデータ構造**
 
 ### Use getters and setters
 ### gettersとsettersを使うこと
-Using getters and setters to access data on objects could be better than simply
-looking for a property on an object. "Why?" you might ask. Well, here's an
-unorganized list of reasons why:
 
-* When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* You can lazy load your object's properties, let's say getting it from a
-server.
 
 gettersとsettersを使ってオブジェクト上のデータにアクセスする方が、単純にオブジェクトのプロパティをみるよりも良くなります。
 「なぜ？」と尋ねるかもしれない。これはあまりまとまっていないものですが、その理由のリストです。
@@ -1185,14 +893,14 @@ function makeBankAccount() {
 const account = makeBankAccount();
 account.setBalance(100);
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 
 ### Make objects have private members
 ### オブジェクトはプライベートなメンバーを持つようにする
 This can be accomplished through closures (for ES5 and below).
 
-これはグロージャによって達成することができます。（ES5以前の場合）
+これはクロージャによって達成することができます。（ES5以前の場合）
 
 **Bad:**
 ```javascript
@@ -1226,16 +934,12 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
-**[⬆ back to top](#table-of-contents)**
 
 
+<!-- 
 ## **Classes**
 ### Prefer ES2015/ES6 classes over ES5 plain functions
 ### ES5の関数よりもES2015/ES6のクラスの方を好むこと
-It's very difficult to get readable class inheritance, construction, and method
-definitions for classical ES5 classes. If you need inheritance (and be aware
-that you might not), then prefer ES2015/ES6 classes. However, prefer small functions over
-classes until you find yourself needing larger and more complex objects.
 
 古典的なES5クラスでは、可読性の良いクラス継承、構築、メソッド定義を行うことが難しいです。
 もし、継承が必要な場合（そう認識していないかもしれない）、ES2015/ES6クラスを優先してください。
@@ -1308,20 +1012,13 @@ class Human extends Mammal {
   speak() { /* ... */ }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 
 ### Use method chaining
 ### メソッドチェーンを利用すること
-This pattern is very useful in JavaScript and you see it in many libraries such
-as jQuery and Lodash. It allows your code to be expressive, and less verbose.
-For that reason, I say, use method chaining and take a look at how clean your code
-will be. In your class functions, simply return `this` at the end of every function,
-and you can chain further class methods onto it.
 
 これは、JavaScriptの中で非常に有用なパターンで、jQueryやLodashのような多くのライブラリの中でみることができます。
-それは、コードを表現力を豊かにし、冗長であることを少なくします。
-その理由から、私は、「メソッドチェーンを使って、あなたのコードがどれくらい綺麗になるか見てください。」と言います。
 クラスの関数の中の全ての関数の終わりで、単純に`this`を返すことで、クラスの中にあるメソッドをチェーンすることができます。
 
 **Bad:**
@@ -1368,29 +1065,21 @@ class Car {
 
   setMake(make) {
     this.make = make;
-    // NOTE: Returning this for chaining
-    // NOTE: チェーンするためにthisを返します
     return this;
   }
 
   setModel(model) {
     this.model = model;
-    // NOTE: Returning this for chaining
-    // NOTE: チェーンするためにthisを返します
     return this;
   }
 
   setColor(color) {
     this.color = color;
-    // NOTE: Returning this for chaining
-    // NOTE: チェーンするためにthisを返します
     return this;
   }
 
   save() {
     console.log(this.make, this.model, this.color);
-    // NOTE: Returning this for chaining
-    // NOTE: チェーンするためにthisを返します
     return this;
   }
 }
@@ -1401,17 +1090,10 @@ const car = new Car()
   .setModel('F-150')
   .save();
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Prefer composition over inheritance
+
+<!-- ### Prefer composition over inheritance
 ### 継承よりコンポジション（組み合わせ）を好む
-
-As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
-you should prefer composition over inheritance where you can. There are lots of
-good reasons to use inheritance and lots of good reasons to use composition.
-The main point for this maxim is that if your mind instinctively goes for
-inheritance, try to think if composition could model your problem better. In some
-cases it can.
 
 有名なGang of Four(四人組)による[*デザインパターン*](https://en.wikipedia.org/wiki/Design_Patterns)のように、
 可能な場所では継承よりもコンポジションを優先するべきです。
@@ -1483,19 +1165,11 @@ class Employee {
   // ...
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
-## **SOLID**
+<!-- ## **SOLID**
 ### Single Responsibility Principle (SRP)
 ### 単一責任の原則(SRP)
-As stated in Clean Code, "There should never be more than one reason for a class
-to change". It's tempting to jam-pack a class with a lot of functionality, like
-when you can only take one suitcase on your flight. The issue with this is
-that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
-It's important because if too much functionality is in one class and you modify
-a piece of it, it can be difficult to understand how that will affect other
-dependent modules in your codebase.
 
 クリーンコードに記載されているように、「クラスが変更される理由は、1つ以上あってはならない」。
 多くの機能を詰め込んだ超満員のクラスは、フライトで1つのスーツケースしか持てない場合などは魅力的に見えます。
@@ -1548,14 +1222,10 @@ class UserSettings {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
-### Open/Closed Principle (OCP)
+<!-- ### Open/Closed Principle (OCP)
 ### オープン・クローズドの原則(OCP)
-As stated by Bertrand Meyer, "software entities (classes, modules, functions,
-etc.) should be open for extension, but closed for modification." What does that
-mean though? This principle basically states that you should allow users to
-add new functionalities without changing existing code.
 
 Bertrand Meyer(バートランド・メイヤー)が記したように、「ソフトウエアの構成要素(クラス、モジュール、関数など)は、拡張に対してオープンで、変更に対してはクローズであるべき」
 それはどう言う意味でしょうか？
@@ -1640,27 +1310,16 @@ class HttpRequester {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
-### Liskov Substitution Principle (LSP)
+<!-- ### Liskov Substitution Principle (LSP)
 ### リスコフの置換原則 (LSP)
-This is a scary term for a very simple concept. It's formally defined as "If S
-is a subtype of T, then objects of type T may be replaced with objects of type S
-(i.e., objects of type S may substitute objects of type T) without altering any
-of the desirable properties of that program (correctness, task performed,
-etc.)." That's an even scarier definition.
 
 これは非常に単縦なコンセプトと呼ぶには恐れ多いです。
 正式には、次のように定義されています。
 「もしSがTの派生型の場合、T型のオブジェクトは、そのプログラムの特性(正確さ、作業能力、など)を損なうことなく、S型のオブジェクトで置き換えることができなければならない(いういなれば、S型のオブジェクトはT型のオブジェクトと置換することができる)」
 これでもさらにやっかいな定義です。
 
-The best explanation for this is if you have a parent class and a child class,
-then the base class and child class can be used interchangeably without getting
-incorrect results. This might still be confusing, so let's take a look at the
-classic Square-Rectangle example. Mathematically, a square is a rectangle, but
-if you model it using the "is-a" relationship via inheritance, you quickly
-get into trouble.
 
 これのもっとも良い説明は、もし親クラスと子クラスがある場合、親クラスと子クラスは異なる振る舞いを起こすことなく、交互に利用することができるということです。
 まだ混乱しているかもしれないので、古典的な正方形と長方形の例を見てましょう。
@@ -1765,29 +1424,18 @@ function renderLargeShapes(shapes) {
 const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
-### Interface Segregation Principle (ISP)
+<!-- ### Interface Segregation Principle (ISP)
 ### インターフェイス分離の原則 (ISP)
-JavaScript doesn't have interfaces so this principle doesn't apply as strictly
-as others. However, it's important and relevant even with JavaScript's lack of
-type system.
 
 JavaScriptはインターフェイスを持っていないため、この原則は他のように厳密には適用されません。
 しかしながら、これは重要かつ、JavaScriptの欠落した型システムにも関連しています。
 
-ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use." Interfaces are implicit contracts in JavaScript because of
-duck typing.
 
 ISPは「クライアントに、彼らが利用していないインターフェイスへの依存を強要してはならない」と記されています。
 JavaScriptにおいては、ダックタイピングのため、インターフェイスは暗黙的な契約です。
 
-A good example to look at that demonstrates this principle in JavaScript is for
-classes that require large settings objects. Not requiring clients to setup
-huge amounts of options is beneficial, because most of the time they won't need
-all of the settings. Making them optional helps prevent having a
-"fat interface".
 
 このJavaScriptでこの原則を説明を見せるための良い例は、巨大な設定オブジェクトが必要なクラスです。
 クライアントに巨大な数のオプション設定を要求しないことが効果的です。なぜなら、多くの場合すべての設定は必要ないからです。
@@ -1851,9 +1499,9 @@ const $ = new DOMTraverser({
   }
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
-### Dependency Inversion Principle (DIP)
+<!-- ### Dependency Inversion Principle (DIP)
 ### 依存性逆転の原則 (DIP)
 This principle states two essential things:
 1. High-level modules should not depend on low-level modules. Both should
@@ -1865,24 +1513,12 @@ abstractions.
 1. 上位のモジュールは下位のモジュールに依存してはならない。それぞれは、抽象に依存するべき。
 2. 抽象は実装に依存してはいけない、実装は抽象に依存するべき。
 
-This can be hard to understand at first, but if you've worked with AngularJS,
-you've seen an implementation of this principle in the form of Dependency
-Injection (DI). While they are not identical concepts, DIP keeps high-level
-modules from knowing the details of its low-level modules and setting them up.
-It can accomplish this through DI. A huge benefit of this is that it reduces
-the coupling between modules. Coupling is a very bad development pattern because
-it makes your code hard to refactor.
 
 これははじめの内は理解することが難しですが、もしAngularJSを触ったことがある人であれば、依存性注入(DI)と言う形でその実装をみたことがあるでしょう。
 それらは同一のコンセプトではありませんが、DIPは上位のモジュールが下位のモジュールの実装を知り、それらを設定することを保ちます（え？保つ？逆じゃないの？？）。
 このことの巨大なメリットは、モジュール間の密結合を削減することです。
 密結合することは、非常に悪い開発のパターンです。なぜなら、それはコードをリファクタしにくくするからです。
 
-As stated previously, JavaScript doesn't have interfaces so the abstractions
-that are depended upon are implicit contracts. That is to say, the methods
-and properties that an object/class exposes to another object/class. In the
-example below, the implicit contract is that any Request module for an
-`InventoryTracker` will have a `requestItems` method.
 
 以前に述べたように、JavaScriptはインターフェイスを持たないため、その抽象とは暗黙の契約の上に依存しています。
 すなわち、あるオブジェクトやクラスのメソッドやプロパティは、他のオブジェクトやクラスにさらけ出されています。
@@ -1964,7 +1600,7 @@ class InventoryRequesterV2 {
 const inventoryTracker = new InventoryTracker(['apples', 'bananas'], new InventoryRequesterV2());
 inventoryTracker.requestItems();
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ## **Testing**
 ## **テスト**
@@ -2043,14 +1679,12 @@ describe('MakeMomentJSGreatAgain', () => {
   });
 });
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 ## **Concurrency**
 ## **同期処理**
 ### Use Promises, not callbacks
 ### コールバックではなく、Promiseを使う
-Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
-Promises are a built-in global type. Use them!
 
 コールバックは簡潔ではありません、そしてそれらは過剰な量のネストを引き起こします。
 ES2015/ES6ではPromiseがグローバルに組み込まれています。それらを使いましょう！
@@ -2093,15 +1727,10 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
   });
 
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Async/Await are even cleaner than Promises
+
+<!-- ### Async/Await are even cleaner than Promises
 ### Async/AwaitはPromiseよりさらに簡潔です
-Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
-which offer an even cleaner solution. All you need is a function that is prefixed
-in an `async` keyword, and then you can write your logic imperatively without
-a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
-today!
 
 Promiseはコールバックに対しては非常に簡潔ですが、S2017/ES8はより簡潔な解決案としてasyncとawaitを引き連れてきました。
 あなたが必要なことは`async`キーワードを関数の先頭につけることです。そして`then`で関数を連結することなく、ロジックを命令的に書くことができます。
@@ -2140,27 +1769,17 @@ async function getCleanCodeArticle() {
   }
 }
 ```
-**[⬆ back to top](#table-of-contents)**
+ -->
 
 
 ## **Error Handling**
 ## **エラーハンドリング**
-Thrown errors are a good thing! They mean the runtime has successfully
-identified when something in your program has gone wrong and it's letting
-you know by stopping function execution on the current stack, killing the
-process (in Node), and notifying you in the console with a stack trace.
 
 例外が発生することは良いことです！この意味は、ランタイムがあなたのプログラムが何かおかしいことを正常に突き止めたということです。
 それは、関数の実行を直近のスタックで停止し、そのプロセスを停止し(ノード中)、コンソールのスタックトレースを通じてあなたに知らせてくれます。
 
 ### Don't ignore caught errors
 ### 例外が捕らえられたことを無視しない
-Doing nothing with a caught error doesn't give you the ability to ever fix
-or react to said error. Logging the error to the console (`console.log`)
-isn't much better as often times it can get lost in a sea of things printed
-to the console. If you wrap any bit of code in a `try/catch` it means you
-think an error may occur there and therefore you should have a plan,
-or create a code path, for when it occurs.
 
 例外を捕捉して何もしないということは、あなたがそのエラーを修正したり、エラーが言ったことに対応したりすることができません。
 コンソール(`console.log`)にエラーを出力することは、頻繁にコンソール出力された海に埋もれてしまうため、それほど良いことではありません。
@@ -2226,35 +1845,19 @@ getdata()
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+
 
 
 ## **Formatting**
-## **フォーマット**
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](http://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
 
-フォーマットは主観的です。ここにある多くのルールと同様に、あなたが従わなければならないような、厳格でがんじがらめのルールはありません。
-ここに自動化するための[多くのツール](http://standardjs.com/rules.html)があります。
-1つを使いましょう！エンジニアがフォーマットについて議論することは、時間とお金の無駄です。
+組織単位でルールを作り、自動化ツールを１つ導入しましょう。  
+フォーマットについて議論することは、時間の無駄です。  
+理由は後述するugalify,minify化を参照  
 
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
-
-自動フォーマット設定の対象にならないもの(インデント、タブ vs スペース、ダブル vs シングルクォートなど)については、ここでいくつかのガイダンスを見てください。
-
-### Use consistent capitalization
 ### 一貫性を持った大文字を利用すること
-JavaScript is untyped, so capitalization tells you a lot about your variables,
-functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
 
 JavaScriptには型がありません。そのため大文字は変数や関数などについて多くのことを教えてくれます。
-これらのルールは主観的なので、あなたのチームが望んているものを選ぶことができます。
-ここでのポイントは、あなたが選んだもの全てについて、一貫性を持たせてくださいということだけです。
+ここでのポイントは、組織あるいはあなたが決めたルールを守ることです。
 
 **Bad:**
 ```javascript
@@ -2285,14 +1888,18 @@ function restoreDatabase() {}
 class Animal {}
 class Alpaca {}
 ```
-**[⬆ back to top](#table-of-contents)**
+
+この例のルール
+定数はUPPERCASE + SNAKECASE
+変数はCAMELCASE
+songs、artistsがSMALLCASE？にする
+
+
+
 
 
 ### Function callers and callees should be close
 ### 関数の呼び出し元と呼び出し先は近くにあること
-If a function calls another, keep those functions vertically close in the source
-file. Ideally, keep the caller right above the callee. We tend to read code from
-top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 関数は他を呼び出す場合、それらをソースコードのなかの垂直方向で近くにおくようにしてください。
 理想的には、呼び出し元を呼び出し先の上においてください。私たちは新聞のように、コードを上から下に読む傾向があります。
@@ -2376,7 +1983,7 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+
 
 ## **Comments**
 ## **コメント**
@@ -2425,7 +2032,7 @@ function hashIt(data) {
 }
 
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Don't leave commented out code in your codebase
 ### コメントアウトしたコードをコードベースに残さない
@@ -2445,14 +2052,11 @@ doStuff();
 ```javascript
 doStuff();
 ```
-**[⬆ back to top](#table-of-contents)**
+
 
 ### Don't have journal comments
 ### 日記のようなコメントは持たない
-Remember, use version control! There's no need for dead code, commented code,
-and especially journal comments. Use `git log` to get history!
-
-バージョン管理を使うことを覚えてほしい！使われていないコード、コメント付きのコード、特に日記の様なコメント。
+特に日記の様なコメント。
 履歴を取得するためには `git log` を使ってください！
 
 **Bad:**
@@ -2474,65 +2078,6 @@ function combine(a, b) {
   return a + b;
 }
 ```
-**[⬆ back to top](#table-of-contents)**
 
-### Avoid positional markers
-### 位置どりのためのマーカーを避ける
-They usually just add noise. Let the functions and variable names along with the
-proper indentation and formatting give the visual structure to your code.
 
-それらは通常はただのノイズです。
-関数や変数に適切なインデントとフォーマットを施すことで、コードに視覚的な構造を与えることができます。
 
-**Bad:**
-```javascript
-////////////////////////////////////////////////////////////////////////////////
-// Scope Model Instantiation
-////////////////////////////////////////////////////////////////////////////////
-$scope.model = {
-  menu: 'foo',
-  nav: 'bar'
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Action setup
-////////////////////////////////////////////////////////////////////////////////
-const actions = function() {
-  // ...
-};
-```
-
-**Good:**
-```javascript
-$scope.model = {
-  menu: 'foo',
-  nav: 'bar'
-};
-
-const actions = function() {
-  // ...
-};
-```
-**[⬆ back to top](#table-of-contents)**
-
-## Translation
-## 翻訳
-
-This is also available in other languages:
-
-これは他の言語でも読むことができます。
-
-  - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [fesnt/clean-code-javascript](https://github.com/fesnt/clean-code-javascript)
-  - ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Uruguay.png) **Spanish**: [andersontr15/clean-code-javascript](https://github.com/andersontr15/clean-code-javascript-es)
-  - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese**:
-    - [alivebao/clean-code-js](https://github.com/alivebao/clean-code-js)
-    - [beginor/clean-code-javascript](https://github.com/beginor/clean-code-javascript)
-  - ![de](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Germany.png) **German**: [marcbruederlin/clean-code-javascript](https://github.com/marcbruederlin/clean-code-javascript)
-  - ![kr](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/South-Korea.png) **Korean**: [qkraudghgh/clean-code-javascript-ko](https://github.com/qkraudghgh/clean-code-javascript-ko)
-  - ![ru](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Russia.png) **Russian**:
-    - [BoryaMogila/clean-code-javascript-ru/](https://github.com/BoryaMogila/clean-code-javascript-ru/)
-    - [maksugr/clean-code-javascript](https://github.com/maksugr/clean-code-javascript)
-  - ![vi](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Vietnam.png) **Vietnamese**: [hienvd/clean-code-javascript/](https://github.com/hienvd/clean-code-javascript/)
-  - ![ja](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) **Japanese**: [mitsuruog/clean-code-javascript/](https://github.com/mitsuruog/clean-code-javascript/)
-
-**[⬆ back to top](#table-of-contents)**
