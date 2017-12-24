@@ -3,11 +3,12 @@
 このリポジトリは個人資料の為、原文が必要な方は下記のリンクを参考にしてください。
 
 clean code JavaScript(本家)  
-https://github.com/mitsuruog/clean-code-javascript 
+https://github.com/ryanmcdermott/clean-code-javascript  
 
 clean code JavaScript(日本語訳)  
 https://mitsuruog.github.io/clean-code-javascript/  
-https://github.com/misak1/clean-code-javascript  
+https://github.com/mitsuruog/clean-code-javascript  
+
 
 ## 目次
   1. [はじめに](#introduction)
