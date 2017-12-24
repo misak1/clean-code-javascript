@@ -467,9 +467,9 @@ function createTempFile(name) {
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> これはケースバイケースかと思います。
 
 
-### グローバル関数に書き込まない
+### グローバルスコープに書き込まない
 
-> グローバルを汚染することはJavaScriptにおけるバッドプラクティスです。
+> グローバルスコープを汚染することはJavaScriptにおけるバッドプラクティスです。
 > なぜなら、他のライブラリをクラッシュさせるかもしれないし、あなたのAPIを使っているユーザーは、プロダクション環境で例外を受け取るまで、そのことについて何もわからないからです。
 
 **Bad:**
