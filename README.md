@@ -972,7 +972,6 @@ review.perfReview();
 ## **Comments**
 
 ### ビジネスロジックが複雑なものにのみコメントすること
-Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
 コメントは弁明です、必須ではありません。良いコードは *ほとんどが* ドキュメントそのものです。
 
