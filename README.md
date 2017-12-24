@@ -797,7 +797,6 @@ class Alpaca {}
 
 定数はUPPERCASE + SNAKECASE  
 変数はCAMELCASE  
-songs、artistsがSMALLCASE  
 
 
 ### 関数の呼び出し元と呼び出し先は近くにあること
