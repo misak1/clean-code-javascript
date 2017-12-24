@@ -838,7 +838,6 @@ getdata()
 
 組織単位でルールを作り、自動化ツールを１つ導入しましょう。  
 フォーマットについて議論することは、時間の無駄です。  
-理由は後述するugalify,minify化を参照  
 
 ### 一貫性を持った大文字を利用すること
 
@@ -875,10 +874,9 @@ class Animal {}
 class Alpaca {}
 ```
 
-この例のルール
 定数はUPPERCASE + SNAKECASE
 変数はCAMELCASE
-songs、artistsがSMALLCASE？にする
+songs、artistsがSMALLCASE？
 
 
 ### Function callers and callees should be close
