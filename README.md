@@ -834,17 +834,15 @@ class Animal {}
 class Alpaca {}
 ```
 
-定数はUPPERCASE + SNAKECASE
-変数はCAMELCASE
-songs、artistsがSMALLCASE？
+定数はUPPERCASE + SNAKECASE  
+変数はCAMELCASE  
+songs、artistsがSMALLCASE  
 
 
-### Function callers and callees should be close
 ### 関数の呼び出し元と呼び出し先は近くにあること
 
 関数は他を呼び出す場合、それらをソースコードのなかの垂直方向で近くにおくようにしてください。
-理想的には、呼び出し元を呼び出し先の上においてください。私たちは新聞のように、コードを上から下に読む傾向があります。
-このため、あなたのコードをこのように読ませるようにしてください。
+理想的には、呼び出し元を呼び出し先の上においてください。
 
 **Bad:**
 ```javascript
