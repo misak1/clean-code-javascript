@@ -137,7 +137,7 @@ console.info(new Date(year, month, day, hour, minute, second)); // Thu Jan 18 20
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てています。(後述の分割代入構文が使われています)
 
 
-### メンタルマップを避ける
+<!-- ### メンタルマップを避ける
 > 明らかなことは暗黙的なことよりも優れています。
 > 訳注：メンタルマップとは、認知心理学において記憶の中に構成される「あるべき姿」のイメージをさす言葉です。
 
@@ -170,7 +170,7 @@ locations.forEach((location) => {
 ```
 
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 要するに他人が見た時に不安を煽るだけのコメントは消しましょう。  
-forEachでループするものがlocationとしておけば迷わないよ!ということ
+forEachでループするものがlocationとしておけば迷わないよ!ということ -->
 
 ### 不必要なコンテキストを加えない
 > もしクラスやオブジェクト名が何かを伝えているのであれば、変数名でそのことを繰り返してはいけません。
