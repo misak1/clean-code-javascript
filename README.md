@@ -519,8 +519,7 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 裏の裏は表みたいなややこしいことはしないで、基本を肯定で作りましょう  
-何もしないブロックがあってもいいと思う（後述のコメント削除）
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 裏の裏は表みたいなややこしいことはしないで、基本を肯定で作りましょう
 
 
 ### 行き過ぎた最適化をしない
