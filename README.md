@@ -1072,6 +1072,8 @@ JavaScriptはブラウザでそのまま実行されるので、書いたコー�
 console.logからコードの処理が追われ、悪用されることもあるでしょうし、  
 ログに書き出しているとよろしくないコードが出ていることもあります。  
 
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/compression.png?raw=true">
+
 ビルトイン関数を上書きすることでconsole.logを止める方法  
 応急処置として使われる方法
 
