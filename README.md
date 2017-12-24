@@ -1065,14 +1065,13 @@ JavaScriptはブラウザでそのまま実行されるので、書いたコー�
 この際に、ホワイトスペースやコメントも一緒に削除されるので。  
 ソースコードのコメントを必死になって整理しなくても良くなるというメリットもあります。  
 
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/uglify-min.png?raw=true">
 
 ### 後述のビルトイン関数の上書きを使った利用例
 
 公開時にconsole.logが残っていると良くないことが多いですね。  
-console.logからコードの処理が追われ、悪用されることもあるでしょうし、  
-ログに書き出しているとよろしくないコードが出ていることもあります。  
-
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/uglify-min.png?raw=true">
+console.logからコードの処理が追われ、悪用されたり、
+ログに書き出しているとよろしくないコードが出ていることもあります。 
 
 ビルトイン関数を上書きすることでconsole.logを止める方法  
 応急処置として使われる方法
