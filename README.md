@@ -36,7 +36,7 @@ JavaScriptに対するコーディング・ガイドになります。
 <a href="https://www.amazon.co.jp/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" taget="_blank">Clean Code</a>は著者のRobert C. Martinらが長年の経験をもとにまとめたものです。
 こちらの本は言語は限定されていません。  
   
-キレイなコードとは3R(Readable、Reusable、Refactorable)になっているものです。
+Clean Codeは3R(Readable、Reusable、Refactorable)であるべきだそうです。
 - Readable　読みやすい
 - Reusable 再利用可能
 - Refactorable 理解や修正がしやすいよう
