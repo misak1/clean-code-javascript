@@ -37,9 +37,9 @@ JavaScriptに対するコーディング・ガイドになります。
 こちらの本は言語は限定されていません。  
   
 キレイなコードとは3R(Readable、Reusable、Refactorable)になっているものです。
-・Readable　読みやすい
-・Reusable 再利用可能
-・Refactorable 理解や修正がしやすいよう
+- Readable　読みやすい
+- Reusable 再利用可能
+- Refactorable 理解や修正がしやすいよう
 
 全てのコードは、粘土が徐々に形作られていくように、曖昧な形から始まるものです。
 その後でコードレビューを行い、不要なコードを削除して作りあげていくものだと書かれています。
