@@ -383,7 +383,7 @@ function showEmployeeList(employees) {
 ```
 
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> サンプルはリファクタリングとしてはいい例なのですが少々わかりにくいですね。  
-最悪なのはコピペされたコードが複数箇所に点在していることです。
+最悪なのはコピペされたコードが複数箇所に点在していること。
 
 ### Object.assignでデフォルトオブジェクトを設定すること
 
@@ -433,7 +433,8 @@ createMenu(menuConfig);
 ```
 
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 似ているObject.assignと分割代入構文  
-Object.assignはオブジェクトのテンプレートを定義することに対し分割代入構文はその場でオブジェクトを作ること  
+Object.assignはオブジェクトのテンプレートを定義することに対し  
+分割代入構文はその場でオブジェクトを作ること  
 
 ### フラグを関数の引数のように利用しない
 
@@ -644,7 +645,7 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 
 ### メソッドチェーンを利用すること
 
-これは、JavaScriptの中で非常に有用なパターンで、jQueryやLodashのような多くのライブラリの中でみることができます。  
+これは、JavaScriptの中で非常に有用なテクニックで、jQueryやLodashのような多くのライブラリの中でみることができます。
 クラスの関数の中の全ての関数の終わりで、単純に`this`を返すことで、クラスの中にあるメソッドをチェーンすることができます。  
 
 **Bad:**
@@ -769,7 +770,6 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 例外が発生することは良いことです！この意味は、ランタイムがあなたのプログラムが何かおかしいことを正常に突き止めたということです。  
 それは、関数の実行を直近のスタックで停止し、そのプロセスを停止し(ノード中)、コンソールのスタックトレースを通じてあなたに知らせてくれます。  
 
-### Don't ignore caught errors
 ### 例外が捕らえられたことを無視しない
 
 例外を捕捉して何もしないということは、あなたがそのエラーを修正したり、エラーが言ったことに対応したりすることができません。  
@@ -832,8 +832,6 @@ getdata()
     // OR do all three!
   });
 ```
-
-
 
 
 ## **Formatting**
@@ -1058,6 +1056,33 @@ function combine(a, b) {
   return a + b;
 }
 ```
+
+** JavaScriptで書いたコードを公開する際に気をつけること **
+JavaScriptはブラウザでそのまま実行されるので、書いたコードは丸見えになっています。  
+その為、公開前にはminify(圧縮)ツールやuglify(難読化)ツールを利用しましょう。  
+この際に、ホワイトスペースやコメントも一緒に削除されるので。  
+ソースコードのコメントを必死になって整理しなくても良くなるというメリットもあります。  
+
+** 後述のビルトイン関数の上書きを使った利用例 **
+公開時にconsole.logが残っていると良くないことが多いですね。  
+console.logからコードの処理が追われ、悪用されることもあるでしょうし、  
+ログに書き出しているとよろしくないコードが出ていることもあります。  
+
+ビルトイン関数を上書きすることでconsole.logを止める方法  
+応急処置として使われる方法
+
+console.logの無効化
+```javascript
+console.log = function(){};
+```
+
+無効化されたconsole.logの復活
+```javascript
+var f = document.body.appendChild(document.createElement('iframe'));
+f.style.display = 'none';
+window.console = f.contentWindow.console;
+```
+
 
 
 
