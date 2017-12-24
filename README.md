@@ -36,31 +36,31 @@ JavaScriptに対するコーディング・ガイドになります。
 <a href="https://www.amazon.co.jp/dp/B001GSTOAM/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" taget="_blank">Clean Code</a>は著者のRobert C. Martinらが長年の経験をもとにまとめたものです。
 こちらの本は言語は限定されていません。  
   
-キレイなコードは3R(Readable、Reusable、Refactorable)になっていることを指し
-読みやすい、再利用可能、理解や修正がしやすいように整理されている
-これらを目指すためのガイドになります。
+キレイなコードとは3R(Readable、Reusable、Refactorable)になっているものです。
+・Readable　読みやすい
+・Reusable 再利用可能
+・Refactorable 理解や修正がしやすいよう
 
 全てのコードは、粘土が徐々に形作られていくように、曖昧な形から始まるものです。
-その後でコードレビューを行い、不要なコードを削除して作りあげていくものです。
-とも語られているそうです。
+その後でコードレビューを行い、不要なコードを削除して作りあげていくものだと書かれています。
 
-JavaScriptは良くも悪くも、非常に自由に書ける言語です。
-その為、個人の技量に応じてコードが複雑になったりしやすいので、
-改めてみてみると面白い発見がありましたので個人の見解も含めて紹介したいと思います。
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> JavaScriptは良くも悪くも、非常に自由に書ける言語です。  
+その為、個人の技量に応じてコードが複雑になったりしやすいので、  
+改めてみてみると面白い発見がありましたので個人の見解も含めて紹介したいと思います。  
 
 ### 変更内容
-・サンプルコードについて一部わかりにくいものについては差し替えました。  
-・業務で使うのがES6ということで、ES5関連の過去の記述方法については削除  
-・ES8や策定中の機能については削除  
-・デザインパターンについては話がややこしくなるので省略します。
+・サンプルコードについて一部わかりにくいものについては変更しました。  
+・業務で使うのがES6ということで、ES5関連の過去の記述方法については省略しました。  
+・ES8や策定中の機能については省略しました。  
+・デザインパターンやアルゴリズムについては省略しました。
 </div>
 
 
 
 
 ## **Variables**
-> 利用範囲の広い変数には意味のある名前を利用しましょう
-例にconst（定数）として使う場合にこれが該当します。
+> 利用範囲の広い変数には意味のある名前を利用しましょう  
+> 例えばconst（定数）として使う場合にこれが該当します。
 
 **Bad:**
 ```javascript
@@ -134,7 +134,7 @@ let revision = '20171218164030';
 let [, year, month, day, hour, minute, second] = revision.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/);
 console.info(new Date(year, month, day, hour, minute, second)); // Thu Jan 18 2018 16:40:30 GMT+0900 (JST)
 ```
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てている(後述の分割代入構文)
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> match戻り値[0]を切り捨てる為に0番目を宣言しないことで捨てています。(後述の分割代入構文が使われています)
 
 
 ### メンタルマップを避ける
@@ -169,7 +169,7 @@ locations.forEach((location) => {
 });
 ```
 
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 要するに他人に見せてもしょうがないコメントは不安を煽るだけだから残すなということ!?  
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 要するに他人が見た時に不安を煽るだけのコメントは消しましょう。  
 forEachでループするものがlocationとしておけば迷わないよ!ということ
 
 ### 不必要なコンテキストを加えない
@@ -231,15 +231,12 @@ function createMicrobrewery(breweryName = 'Hipster Brew Co.') {
 ## **Functions**
 ### 関数の引数(2つ以下が理想的)
 
-関数の引数の数を制限することは、テストを簡単に行えるという点において非常に重要なことです。
-3つ以上あるということは、それぞれ別の引数を伴った数多くの異なるケースをテストしなければならないという問題につながります。
-
-1つか2つの場合は理想的で、3つ以上になる場合は次の手法を検討してください。
-ほとんどの場合、上位のオブジェクトを引数とすれば十分でしょう。
-
-JavaScriptは、多くのクラスの雛形がなくとも素早くオブジェクトを作成することができるため、もし多くの引数を必要としているとわかった場合は、オブジェクトを使うことができます。
-
-これを解決するのがES2015/ES6のdestructuring assignment(分割代入構文)です。
+関数の引数の数を制限することは、テストを簡単に行えるという点において非常に重要なことです。  
+3つ以上あるということは、それぞれ別の引数を伴った数多くの異なるケースをテストしなければならないという問題につながります。  
+  
+JavaScriptは、多くのクラスの雛形がなくとも素早くオブジェクトを作成することができるため、もし多くの引数を必要としているとわかった場合は、オブジェクトを使うことができます。  
+  
+これを解決するのがES2015/ES6のdestructuring assignment(分割代入構文)です。  
 
 **Bad:**
 ```javascript
@@ -264,8 +261,8 @@ createMenu({
 
 ### 関数は1つのことを行うこと
 
-これはとても重要なルールです。
-関数をただ1つのことをやるように分離できた場合、それらを簡単にリファクタリングしたり、コードをかなりしっかりと読むことができます。
+これはとても重要なルールです。  
+関数をただ1つのことをやるように分離できた場合、それらを簡単にリファクタリングしたり、コードをかなりしっかりと読むことができます。  
 
 **Bad:**
 ```javascript
@@ -321,7 +318,7 @@ addMonthToDate(1, date);
 
 ### 重複したコードを削除すること
 
-> 重複したコードを避けるために絶対にベストを尽くしてください。
+> 重複したコードを避けるために絶対にベストを尽くしてください。  
 > 重複したコードは、もし何かのロジックを変更しようとした場合、何か変更する場所が1つ以上あるという意味で悪です。
 
 **Bad:**
@@ -385,7 +382,7 @@ function showEmployeeList(employees) {
 }
 ```
 
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> サンプルはリファクタリングとしてはいい例だと思いますが少々わかりにくいですね。  
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> サンプルはリファクタリングとしてはいい例なのですが少々わかりにくいですね。  
 最悪なのはコピペされたコードが複数箇所に点在していることです。
 
 ### Object.assignでデフォルトオブジェクトを設定すること
@@ -438,11 +435,10 @@ createMenu(menuConfig);
 <img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 似ているObject.assignと分割代入構文  
 Object.assignはオブジェクトのテンプレートを定義することに対し分割代入構文はその場でオブジェクトを作ること  
 
-
 ### フラグを関数の引数のように利用しない
 
-> フラグは、この関数が複数のことを行うことを利用者に伝えます。
-> 関数は1つのことを行うべきです。関数が真偽値によって異なるコードの経路を経由する場合、その関数を分割してください。
+> フラグは、この関数が複数のことを行うことを利用者に伝えます。  
+> 関数は1つのことを行うべきです。関数が真偽値によって異なるコードの経路を経由する場合、その関数を分割してください。  
 
 **Bad:**
 ```javascript
@@ -466,11 +462,9 @@ function createTempFile(name) {
 }
 ```
 
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> ケースバイケースかと思います。
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> これはケースバイケースかと思います。
 
 
-
-### Don't write to global functions
 ### グローバル関数に書き込まない
 
 > グローバルを汚染することはJavaScriptにおけるバッドプラクティスです。
@@ -523,7 +517,7 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 裏の裏は表みたいなややこしいことはしないで、基本を肯定で作りましょう
+<img src="https://github.com/misak1/clean-code-javascript/blob/master/point-50.png?raw=true" width="20"/> 裏の裏は表みたいなややこしいことはしないで、基本を肯定で作りましょう  
 何もしないブロックがあってもいいと思う（後述のコメント削除）
 
 
@@ -650,8 +644,8 @@ console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 
 ### メソッドチェーンを利用すること
 
-これは、JavaScriptの中で非常に有用なパターンで、jQueryやLodashのような多くのライブラリの中でみることができます。
-クラスの関数の中の全ての関数の終わりで、単純に`this`を返すことで、クラスの中にあるメソッドをチェーンすることができます。
+これは、JavaScriptの中で非常に有用なパターンで、jQueryやLodashのような多くのライブラリの中でみることができます。  
+クラスの関数の中の全ての関数の終わりで、単純に`this`を返すことで、クラスの中にあるメソッドをチェーンすることができます。  
 
 **Bad:**
 ```javascript
@@ -727,8 +721,8 @@ const car = new Car()
 ## **同期処理**
 ### コールバックではなく、Promiseを使う
 
-コールバックは簡潔ではありません、そしてそれらは過剰な量のネストを引き起こします。
-ES2015/ES6ではPromiseがグローバルに組み込まれています。それらを使いましょう！
+コールバックは簡潔ではありません、そしてそれらは過剰な量のネストを引き起こします。  
+ES2015/ES6ではPromiseがグローバルに組み込まれています。それらを使いましょう！  
 
 **Bad:**
 ```javascript
@@ -772,16 +766,16 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 
 ## **Error Handling**
 
-例外が発生することは良いことです！この意味は、ランタイムがあなたのプログラムが何かおかしいことを正常に突き止めたということです。
-それは、関数の実行を直近のスタックで停止し、そのプロセスを停止し(ノード中)、コンソールのスタックトレースを通じてあなたに知らせてくれます。
+例外が発生することは良いことです！この意味は、ランタイムがあなたのプログラムが何かおかしいことを正常に突き止めたということです。  
+それは、関数の実行を直近のスタックで停止し、そのプロセスを停止し(ノード中)、コンソールのスタックトレースを通じてあなたに知らせてくれます。  
 
 ### Don't ignore caught errors
 ### 例外が捕らえられたことを無視しない
 
-例外を捕捉して何もしないということは、あなたがそのエラーを修正したり、エラーが言ったことに対応したりすることができません。
-コンソール(`console.log`)にエラーを出力することは、頻繁にコンソール出力された海に埋もれてしまうため、それほど良いことではありません。
-コードの一部を `try/catch` で囲うということは、そこでエラー発生するかもしれないということを意味します。
-したがって、エラーが発生した時のために、なにかの対策をしたり、コードの行き先を作らなければなりません。
+例外を捕捉して何もしないということは、あなたがそのエラーを修正したり、エラーが言ったことに対応したりすることができません。  
+コンソール(`console.log`)にエラーを出力することは、頻繁にコンソール出力された海に埋もれてしまうため、それほど良いことではありません。  
+コードの一部を `try/catch` で囲うということは、そこでエラー発生するかもしれないということを意味します。  
+したがって、エラーが発生した時のために、なにかの対策をしたり、コードの行き先を作らなければなりません。  
 
 **Bad:**
 ```javascript
@@ -807,10 +801,7 @@ try {
 }
 ```
 
-### Don't ignore rejected promises
 ### 失敗したpromiseを無視しない
-For the same reason you shouldn't ignore caught errors
-from `try/catch`.
 
 同じ理由により、`try/catch`にて発生した例外を無視するべきではありません。
 
@@ -890,9 +881,6 @@ class Alpaca {}
 定数はUPPERCASE + SNAKECASE
 変数はCAMELCASE
 songs、artistsがSMALLCASE？にする
-
-
-
 
 
 ### Function callers and callees should be close
@@ -983,9 +971,7 @@ review.perfReview();
 
 
 ## **Comments**
-## **コメント**
 
-### Only comment things that have business logic complexity.
 ### ビジネスロジックが複雑なものにのみコメントすること
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
@@ -1031,9 +1017,7 @@ function hashIt(data) {
 ```
 
 
-### Don't leave commented out code in your codebase
 ### コメントアウトしたコードをコードベースに残さない
-Version control exists for a reason. Leave old code in your history.
 
 バージョン管理があることがその理由です。古いコードは履歴に残しましょう。
 
@@ -1051,7 +1035,6 @@ doStuff();
 ```
 
 
-### Don't have journal comments
 ### 日記のようなコメントは持たない
 特に日記の様なコメント。
 履歴を取得するためには `git log` を使ってください！
