@@ -970,9 +970,9 @@ review.perfReview();
 
 ## **Comments**
 
-### ビジネスロジックが複雑なものにのみコメントすること
+### ロジックが複雑なものにのみコメントすること
 
-コメントは弁明です、必須ではありません。良いコードは *ほとんどが* ドキュメントそのものです。
+良いコードはドキュメントそのものです。
 
 **Bad:**
 ```javascript
@@ -1014,9 +1014,9 @@ function hashIt(data) {
 ```
 
 
-### コメントアウトしたコードをコードベースに残さない
+### コメントアウトしたコードを残さない
 
-バージョン管理があることがその理由です。古いコードは履歴に残しましょう。
+バージョン管理があるなら古いコードは履歴に残しましょう。
 
 **Bad:**
 ```javascript
@@ -1029,31 +1029,6 @@ doStuff();
 **Good:**
 ```javascript
 doStuff();
-```
-
-
-### 日記のようなコメントは持たない
-特に日記の様なコメント。
-履歴を取得するためには `git log` を使ってください！
-
-**Bad:**
-```javascript
-/**
- * 2016-12-20: Removed monads, didn't understand them (RM)
- * 2016-10-01: Improved using special monads (JP)
- * 2016-02-03: Removed type-checking (LI)
- * 2015-03-14: Added combine with type-checking (JR)
- */
-function combine(a, b) {
-  return a + b;
-}
-```
-
-**Good:**
-```javascript
-function combine(a, b) {
-  return a + b;
-}
 ```
 
 
