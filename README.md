@@ -730,13 +730,6 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 例外が発生することは良いことです！この意味は、ランタイムがあなたのプログラムが何かおかしいことを正常に突き止めたということです。  
 それは、関数の実行を直近のスタックで停止し、そのプロセスを停止し(ノード中)、コンソールのスタックトレースを通じてあなたに知らせてくれます。  
 
-### 例外が捕らえられたことを無視しない
-
-例外を捕捉して何もしないということは、あなたがそのエラーを修正したり、エラーが言ったことに対応したりすることができません。  
-コンソール(`console.log`)にエラーを出力することは、頻繁にコンソール出力された海に埋もれてしまうため、それほど良いことではありません。  
-コードの一部を `try/catch` で囲うということは、そこでエラー発生するかもしれないということを意味します。  
-したがって、エラーが発生した時のために、なにかの対策をしたり、コードの行き先を作らなければなりません。  
-
 **Bad:**
 ```javascript
 try {
@@ -759,38 +752,6 @@ try {
   reportErrorToService(error);
   // OR do all three!
 }
-```
-
-### 失敗したpromiseを無視しない
-
-同じ理由により、`try/catch`にて発生した例外を無視するべきではありません。
-
-**Bad:**
-```javascript
-getdata()
-  .then((data) => {
-    functionThatMightThrow(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-```
-
-**Good:**
-```javascript
-getdata()
-  .then((data) => {
-    functionThatMightThrow(data);
-  })
-  .catch((error) => {
-    // One option (more noisy than console.log):
-    console.error(error);
-    // Another option:
-    notifyUserOfError(error);
-    // Another option:
-    reportErrorToService(error);
-    // OR do all three!
-  });
 ```
 
 
